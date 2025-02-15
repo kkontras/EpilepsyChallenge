@@ -32,9 +32,9 @@ class MetricsStore():
     def evaluate_multiple_predictions(
             self, reference, predictions, patients, fs = 200
     ) -> None:
-        # for i in range(len(patients)):
-        self.evaluate_predictions(reference, fs, predictions, fs, patients )
-        return None        
+        for i in range(len(patients)):
+            self.evaluate_predictions(reference, fs, predictions, fs, patients )
+        return None
 
     def evaluate_predictions(
         self, reference, ref_fs, predictions, pred_fs, patient
@@ -74,7 +74,6 @@ class MetricsStore():
         self.event_results[patient] = self.event_results[patient] + Result(event_score)
 
         return None
-
 
     def _compute_scores(self, avg_per_subject = True):
 

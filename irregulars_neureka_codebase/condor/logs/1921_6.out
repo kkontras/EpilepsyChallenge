@@ -1,0 +1,67 @@
+Starting Job
+/users/sista/kkontras/Documents/Epilepsy_Challenge/irregulars_neureka_codebase/main.py
+/esat/smcdata/users/kkontras/Image_Dataset/no_backup/envs/ec_p10/bin/python
+Python 3.10.16
+/users/sista/kkontras/Documents/Epilepsy_Challenge/irregulars_neureka_codebase
+We have 1 GPU
+/users/sista/kkontras/Documents/Epilepsy_Challenge/irregulars_neureka_codebase/main.py
+config-./configs/unet_raw.json
+Executing command: python3 /users/sista/kkontras/Documents/Epilepsy_Challenge/irregulars_neureka_codebase/main.py --config ./configs/unet_raw.json --default_config ./configs/default_config_tuhsz2.json --rsz 0.2 --lr 0.001 --wd 0.0001 --bs 32
+Namespace(config='./configs/unet_raw.json', default_config='./configs/default_config_tuhsz2.json', lr='0.001', wd='0.0001', mm=None, rsz='0.2', bs='32', post_validate=False, print_results=False)
+2025-02-15 08:48:06,252 - Config - INFO - ./configs/unet_raw.json
+2025-02-15 08:48:06,256 - Config - INFO -  THE Configuration of your experiment ..
+{'dataset': {'data_path': {'sz2': '/esat/biomeddata/mbhaguba/seizeit2.h5',
+                           'tuh': '/esat/biomeddata/kkontras/TUH/tuh_eeg/tuh_eeg_seizure/v2.0.3/TUH.h5'},
+             'dataloader_class': 'TUHSeizIT2_Dataloader',
+             'discard_full_prob': 1.0,
+             'fs': 200,
+             'ratio_sz_nsz': 0.5,
+             'stride': 4096,
+             'window_size': 4096},
+ 'early_stopping': {'max_epoch': 150,
+                    'n_steps_stop': 50,
+                    'n_steps_stop_after': 0},
+ 'exp_name': 'TUH + SeizIT2 Experiment',
+ 'model': {'args': {'augment_with_surrogates': False},
+           'encoders': [{'args': {'n_channels': 18,
+                                  'n_filters': 8,
+                                  'preproc': 'raw',
+                                  'window_size': 4096},
+                         'model_class': 'UNet1D',
+                         'pretrainedEncoder': {'dir': 'neureka_pytorch_raw.pth',
+                                               'use': True}}],
+           'load_ongoing': True,
+           'model_class': 'Unimodal',
+           'save_base_dir': '/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/TUH_SZ2_models/',
+           'save_dir': 'unet_raw{}.pth'},
+ 'optimizer': {'beta1': 0.9,
+               'beta2': 0.999,
+               'lr': 0.001,
+               'type': 'Adam',
+               'weight_decay': 0.0001},
+ 'scheduler': {'T_0': 10, 'T_mult': 1, 'type': 'CosineAnnealingWarmRestarts'},
+ 'training_params': {'batch_size': 128,
+                     'cuda': True,
+                     'data_loader_workers': 8,
+                     'gpu_device': [0],
+                     'pin_memory': True,
+                     'seed': 109,
+                     'tdqm_disable': True,
+                     'test_batch_size': 128,
+                     'wandb_disable': True}}
+2025-02-15 08:48:06,258 - Config - INFO -  *************************************** 
+2025-02-15 08:48:06,258 - Config - INFO - The experiment name is TUH + SeizIT2 Experiment
+2025-02-15 08:48:06,258 - Config - INFO -  *************************************** 
+We discard non-seizure recordings: train
+Number of patients before:  471
+Number of patients after:  231
+We discard randomly further 38273 non-seizure windows
+We discard non-seizure recordings: val
+Number of patients before:  118
+Number of patients after:  60
+We discard non-seizure recordings: test
+Number of patients before:  0
+Number of patients after:  0
+Available cores 8
+We are changing dataloader workers to num of cores 7
+Loading encoder from /esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/TUH_SZ2_models/neureka_pytorch_raw.pth

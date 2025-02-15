@@ -271,7 +271,7 @@ class LSTM_Neureka(nn.Module):
         super(LSTM_Neureka, self).__init__()
 
         # Bidirectional LSTM layer (input size = 1, hidden size = 8, bidirectional = True)
-        self.lstm = nn.LSTM(input_size=3, hidden_size=4, num_layers=1,
+        self.lstm = nn.LSTM(input_size=2, hidden_size=4, num_layers=1,
                             batch_first=True, bidirectional=True)
 
         # Dense layer (input size = 16, output size = 9)
@@ -304,6 +304,25 @@ class NeurekaNet(nn.Module):
             feat = torch.cat([raw[dim], wiener[dim], iclabel[dim]], dim=-1)
             pred_dict[dim] = self.enc_3(feat)
         return pred_dict
+
+
+class NeurekaNet_2Views(nn.Module):
+    def __init__(self, args, encs):
+        super(NeurekaNet_2Views, self).__init__()
+
+        self.enc_0 = encs[0]
+        self.enc_1 = encs[1]
+        self.enc_2 = encs[2]
+
+    def forward(self, x):
+        raw = self.enc_0(x)
+        wiener = self.enc_1(x)
+        pred_dict = {}
+        for dim in range(len(raw)):
+            feat = torch.cat([raw[dim], wiener[dim]], dim=-1)
+            pred_dict[dim]= self.enc_2(feat).squeeze()
+        return pred_dict
+
 class Unimodal(nn.Module):
     def __init__(self, args, encs):
         super(Unimodal, self).__init__()

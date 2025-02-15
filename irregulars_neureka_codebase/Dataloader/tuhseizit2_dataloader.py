@@ -19,11 +19,11 @@ class TUHSeizIT2Dataset(Dataset):
         self.mode = mode
 
         if "sz2" in config.dataset.data_path.keys():
-            self.h5_file_sz2 = h5py.File(config.dataset.data_path["sz2"], 'r')
+            self.h5_file_sz2 = h5py.File(config.dataset.data_path["sz2"], 'r', swmr=True)
         else:
             self.h5_file_sz2 = False
         if "tuh" in config.dataset.data_path.keys():
-            self.h5_file_tuh = h5py.File(config.dataset.data_path["tuh"], 'r')
+            self.h5_file_tuh = h5py.File(config.dataset.data_path["tuh"], 'r', swmr=True)
         else:
             self.h5_file_tuh = False
 
@@ -57,12 +57,16 @@ class TUHSeizIT2Dataset(Dataset):
         for dataset in self.patient_dict.keys():
             for patient in self.patient_dict[dataset].keys():
                     for session in self.patient_dict[dataset][patient].keys():
-                        if len(self.patient_dict[dataset][patient][session]["events"]) > 0:
-                            if dataset not in new_patient_dict.keys():
-                                new_patient_dict[dataset] = {}
-                            if patient not in new_patient_dict[dataset].keys():
-                                new_patient_dict[dataset][patient] = {}
-                            new_patient_dict[dataset][patient][session] = self.patient_dict[dataset][patient][session]
+                        if len(self.patient_dict[dataset][patient][session]["events"]) == 0:
+                            if random.random() < self.config.dataset.discard_full_prob:
+                                continue
+
+                        if dataset not in new_patient_dict.keys():
+                            new_patient_dict[dataset] = {}
+                        if patient not in new_patient_dict[dataset].keys():
+                            new_patient_dict[dataset][patient] = {}
+                        new_patient_dict[dataset][patient][session] = self.patient_dict[dataset][patient][session]
+
         print("We discard non-seizure recordings: {}".format(self.mode))
         print("Number of patients before: ", len(self.patient_dict.keys()))
         print("Number of patients after: ", len(new_patient_dict.keys()))
@@ -114,7 +118,7 @@ class TUHSeizIT2Dataset(Dataset):
         patient_names = list(self.patient_dict.keys())
         #We decided for the challenge to skip the test set completely. If you need it change it accordingly
         # train_patients, test_patients = train_test_split(patient_names, test_size=0.01, random_state=42)
-        train_patients, val_patients = train_test_split(patient_names, test_size=0.3, random_state=self.config.training_params.seed)
+        train_patients, val_patients = train_test_split(patient_names, test_size=0.2, random_state=self.config.training_params.seed)
         test_patients = []
 
         if mode == "train":
@@ -288,16 +292,12 @@ class TUHSeizIT2Dataset(Dataset):
         demographics = self._choose_patient_session_recording_len(idx)
         if self.patient_dataset[demographics["patient"]] == "sz2":
             label, events = self._get_label_seizit2(demographics)
-            demographics["events"] = events
             signal = self._get_signals_seizit2(demographics, label)
             signal = self._windowize(signal, self.config.dataset.window_size, self.config.dataset.stride)
         elif self.patient_dataset[demographics["patient"]] == "tuh":
             label, events = self._get_label_tuh(demographics)
-            demographics["events"] = events
             signal = self._get_signals_tuh(demographics, label)
             signal = self._windowize(signal, self.config.dataset.window_size, self.config.dataset.stride)
-
-        demographics["events"] = self._fill_in_empty_events(demographics["events"], 50)
 
         return {"data":{"raw":signal},"label": label, "idx": idx, "demographics":demographics}
 
@@ -323,6 +323,7 @@ class TUHSeizIT2_Dataloader():
 
         print("Available cores {}".format(len(os.sched_getaffinity(0))))
         print("We are changing dataloader workers to num of cores {}".format(num_cores))
+        #skip last batch
 
         self.train_loader = torch.utils.data.DataLoader(train_dataset,
                                                         batch_size=self.config.training_params.batch_size,
@@ -331,18 +332,21 @@ class TUHSeizIT2_Dataloader():
                                                         pin_memory=self.config.training_params.pin_memory,
                                                         generator=g,
                                                         # collate_fn=collate_fn_padd,
-                                                        worker_init_fn=seed_worker
+                                                        worker_init_fn=seed_worker,
+                                                        drop_last=True
                                                         )
         self.valid_loader = torch.utils.data.DataLoader(valid_dataset,
                                                         batch_size=self.config.training_params.test_batch_size,
                                                         shuffle=False,
                                                         num_workers=num_cores,
+                                                        drop_last=True,
                                                         # collate_fn=collate_fn_padd,
                                                         pin_memory=self.config.training_params.pin_memory)
         self.test_loader = torch.utils.data.DataLoader(test_dataset,
                                                        batch_size=self.config.training_params.test_batch_size,
                                                        shuffle=False,
                                                        num_workers=num_cores,
+                                                       drop_last=True,
                                                        # collate_fn=collate_fn_padd,
                                                        pin_memory=self.config.training_params.pin_memory)
     def _get_datasets(self):

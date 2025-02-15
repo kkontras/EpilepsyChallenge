@@ -1,0 +1,341 @@
+000 (1921.003.000) 2025-02-14 19:10:20 Job submitted from host: <10.87.28.129:9618?addrs=10.87.28.129-9618&alias=timmermans.esat.kuleuven.be&noUDP&sock=schedd_1957_eaee>
+...
+001 (1921.003.000) 2025-02-14 19:10:30 Job executing on host: <10.87.24.11:9618?addrs=10.87.24.11-9618&alias=cauchy.esat.kuleuven.be&noUDP&sock=startd_1798_db5f>
+	SlotName: slot1_2@cauchy.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_d8dcc495 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_606787"
+	Cpus = 8
+	Disk = 1055423
+	GPUs = 1
+	GPUs_GPU_d8dcc495 = [ Id = "GPU-d8dcc495"; ClockMhz = 1695.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3080 Ti"; DeviceUuid = "d8dcc495-695e-4451-8b2f-0e789a6117e7"; ECCEnabled = false; ComputeUnits = 80; DriverVersion = 12.7; DevicePciBusId = "0000:42:00.0"; GlobalMemoryMb = 11937; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+006 (1921.003.000) 2025-02-14 19:10:44 Image size of job updated: 5521792
+	5393  -  MemoryUsage of job (MB)
+	5521792  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 19:15:44 Image size of job updated: 7975168
+	6810  -  MemoryUsage of job (MB)
+	6973164  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 19:25:45 Image size of job updated: 8690952
+	6810  -  MemoryUsage of job (MB)
+	6973164  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 19:35:46 Image size of job updated: 12057960
+	9155  -  MemoryUsage of job (MB)
+	9374396  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 19:40:47 Image size of job updated: 15466924
+	9164  -  MemoryUsage of job (MB)
+	9383304  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 19:45:48 Image size of job updated: 22494460
+	21253  -  MemoryUsage of job (MB)
+	21762888  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 20:05:50 Image size of job updated: 22494460
+	21346  -  MemoryUsage of job (MB)
+	21857724  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 20:10:50 Image size of job updated: 22494460
+	21538  -  MemoryUsage of job (MB)
+	22054608  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 20:25:51 Image size of job updated: 22519512
+	21538  -  MemoryUsage of job (MB)
+	22054608  -  ResidentSetSize of job (KB)
+...
+006 (1921.003.000) 2025-02-14 21:00:56 Image size of job updated: 22519512
+	21987  -  MemoryUsage of job (MB)
+	22514056  -  ResidentSetSize of job (KB)
+...
+004 (1921.003.000) 2025-02-15 08:41:45 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 14:31:52, Sys 1 10:33:43  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.81        8         8 
+	   Disk (KB)            :     2     1048576   1055423 
+	   GPUs                 :     0.19        1         1 "GPU-d8dcc495"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 21987       22528     22528 
+	   TimeExecute (s)      : 48674                       
+	   TimeSlotBusy (s)     : 48675                       
+...
+001 (1921.003.000) 2025-02-15 08:42:47 Job executing on host: <10.87.24.59:9618?addrs=10.87.24.59-9618+[--1]-9618&alias=wulfenite.esat.kuleuven.be&noUDP&sock=startd_1652_b68b>
+	SlotName: slot1_2@wulfenite.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_431d95f5 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_2272666"
+	Cpus = 8
+	Disk = 1050829
+	GPUs = 1
+	GPUs_GPU_431d95f5 = [ Id = "GPU-431d95f5"; ClockMhz = 1582.0; Capability = 6.1; CoresPerCU = 128; DeviceName = "NVIDIA TITAN Xp"; DeviceUuid = "431d95f5-9f50-7365-c98b-0230dfb584f4"; ECCEnabled = false; ComputeUnits = 30; DriverVersion = 12.7; DevicePciBusId = "0000:65:00.0"; GlobalMemoryMb = 12183; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:43:32 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:43, Sys 0 00:00:40  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     2.81        8         8 
+	   Disk (KB)            :     2     1048576   1050829 
+	   GPUs                 :     0.19        1         1 "GPU-431d95f5"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    44                       
+	   TimeSlotBusy (s)     :    45                       
+...
+001 (1921.003.000) 2025-02-15 08:43:53 Job executing on host: <10.87.24.56:9618?addrs=10.87.24.56-9618+[--1]-9618&alias=gauss.esat.kuleuven.be&noUDP&sock=startd_1850_864c>
+	SlotName: slot1_1@gauss.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_9860d917 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_660459"
+	Cpus = 8
+	Disk = 1055578
+	GPUs = 1
+	GPUs_GPU_9860d917 = [ Id = "GPU-9860d917"; ClockMhz = 1695.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3080 Ti"; DeviceUuid = "9860d917-e948-ba16-923b-7001aaaa5bbf"; ECCEnabled = false; ComputeUnits = 80; DriverVersion = 12.7; DevicePciBusId = "0000:41:00.0"; GlobalMemoryMb = 11937; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:44:11 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:03, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     0           8         8 
+	   Disk (KB)            :     2     1048576   1055578 
+	   GPUs                 :     0.19        1         1 "GPU-9860d917"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    18                       
+	   TimeSlotBusy (s)     :    18                       
+...
+001 (1921.003.000) 2025-02-15 08:45:13 Job executing on host: <10.87.24.2:9618?addrs=10.87.24.2-9618&alias=amethyst.esat.kuleuven.be&noUDP&sock=startd_1665_a146>
+	SlotName: slot1_1@amethyst.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_2e781e70 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_1157861"
+	Cpus = 8
+	Disk = 1050648
+	GPUs = 1
+	GPUs_GPU_2e781e70 = [ Id = "GPU-2e781e70"; ClockMhz = 1807.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3060"; DeviceUuid = "2e781e70-9b88-ebde-3296-adca0cdf7bfe"; ECCEnabled = false; ComputeUnits = 28; DriverVersion = 12.7; DevicePciBusId = "0000:01:00.0"; GlobalMemoryMb = 11936; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:46:48 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:21, Sys 0 00:00:16  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     0.48        8         8 
+	   Disk (KB)            :     2     1048576   1050648 
+	   GPUs                 :     0.19        1         1 "GPU-2e781e70"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    90                       
+	   TimeSlotBusy (s)     :    96                       
+...
+001 (1921.003.000) 2025-02-15 08:47:12 Job executing on host: <10.87.24.135:9618?addrs=10.87.24.135-9618&alias=kenaz.esat.kuleuven.be&noUDP&sock=startd_1933_74a8>
+	SlotName: slot1_1@kenaz.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_6f4b7959 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_2119623"
+	Cpus = 8
+	Disk = 1049693
+	GPUs = 1
+	GPUs_GPU_6f4b7959 = [ Id = "GPU-6f4b7959"; ClockMhz = 1695.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3080 Ti"; DeviceUuid = "6f4b7959-b38e-a98c-6fbc-d509dc60fb95"; ECCEnabled = false; ComputeUnits = 80; DriverVersion = 12.7; DevicePciBusId = "0000:41:00.0"; GlobalMemoryMb = 11934; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:47:33 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:08, Sys 0 00:00:18  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     0.47        8         8 
+	   Disk (KB)            :     2     1048576   1049693 
+	   GPUs                 :     0.19        1         1 "GPU-6f4b7959"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    20                       
+	   TimeSlotBusy (s)     :    21                       
+...
+021 (1921.003.000) 2025-02-15 08:47:55 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336307: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:47:55 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336307: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     0.47        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    20                       
+	   TimeSlotBusy (s)     :    21                       
+...
+001 (1921.003.000) 2025-02-15 08:50:34 Job executing on host: <10.87.24.59:9618?addrs=10.87.24.59-9618+[--1]-9618&alias=wulfenite.esat.kuleuven.be&noUDP&sock=startd_1652_b68b>
+	SlotName: slot1_2@wulfenite.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_431d95f5 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_2273139"
+	Cpus = 8
+	Disk = 1050829
+	GPUs = 1
+	GPUs_GPU_431d95f5 = [ Id = "GPU-431d95f5"; ClockMhz = 1582.0; Capability = 6.1; CoresPerCU = 128; DeviceName = "NVIDIA TITAN Xp"; DeviceUuid = "431d95f5-9f50-7365-c98b-0230dfb584f4"; ECCEnabled = false; ComputeUnits = 30; DriverVersion = 12.7; DevicePciBusId = "0000:65:00.0"; GlobalMemoryMb = 12183; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:51:55 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:02:20, Sys 0 00:02:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     3.42        8         8 
+	   Disk (KB)            :     2     1048576   1050829 
+	   GPUs                 :     0.19        1         1 "GPU-431d95f5"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    80                       
+	   TimeSlotBusy (s)     :    81                       
+...
+021 (1921.003.000) 2025-02-15 08:52:56 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336470: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:52:56 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336470: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     3.42        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    80                       
+	   TimeSlotBusy (s)     :    81                       
+...
+001 (1921.003.000) 2025-02-15 08:53:41 Job executing on host: <10.87.24.135:9618?addrs=10.87.24.135-9618&alias=kenaz.esat.kuleuven.be&noUDP&sock=startd_1933_74a8>
+	SlotName: slot1_1@kenaz.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_6f4b7959 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_2119986"
+	Cpus = 8
+	Disk = 1049693
+	GPUs = 1
+	GPUs_GPU_6f4b7959 = [ Id = "GPU-6f4b7959"; ClockMhz = 1695.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3080 Ti"; DeviceUuid = "6f4b7959-b38e-a98c-6fbc-d509dc60fb95"; ECCEnabled = false; ComputeUnits = 80; DriverVersion = 12.7; DevicePciBusId = "0000:41:00.0"; GlobalMemoryMb = 11934; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+004 (1921.003.000) 2025-02-15 08:54:23 Job was evicted. Code 1005 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:43, Sys 0 00:01:33  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     4.88        8         8 
+	   Disk (KB)            :     2     1048576   1049693 
+	   GPUs                 :     0.19        1         1 "GPU-6f4b7959"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    41                       
+	   TimeSlotBusy (s)     :    42                       
+...
+021 (1921.003.000) 2025-02-15 08:55:24 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336548: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:55:24 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336548: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     4.88        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    41                       
+	   TimeSlotBusy (s)     :    42                       
+...
+021 (1921.003.000) 2025-02-15 08:56:23 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336576: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:56:23 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336576: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     4.88        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    41                       
+	   TimeSlotBusy (s)     :    42                       
+...
+021 (1921.003.000) 2025-02-15 08:57:23 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336603: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:57:23 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336603: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     4.88        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    41                       
+	   TimeSlotBusy (s)     :    42                       
+...
+021 (1921.003.000) 2025-02-15 08:58:23 Error from starter on slot1_1@nasu.esat.kuleuven.be:
+	chown error on /usr/data/condor/execute/dir_336640: Input/output error
+...
+004 (1921.003.000) 2025-02-15 08:58:23 Job was evicted. Code 1007 Subcode 0
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@nasu.esat.kuleuven.be: chown error on /usr/data/condor/execute/dir_336640: Input/output error
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     4.88        8         8 
+	   Disk (KB)            :     2     1048576   1049600 
+	   GPUs                 :     0.19        1         1 "GPU-7bc2c863"
+	   GpusMemory (MB)      :  3895                       
+	   Memory (MB)          : 24415       22528     22528 
+	   TimeExecute (s)      :    41                       
+	   TimeSlotBusy (s)     :    42                       
+...
+001 (1921.003.000) 2025-02-15 08:59:24 Job executing on host: <10.87.24.59:9618?addrs=10.87.24.59-9618+[--1]-9618&alias=wulfenite.esat.kuleuven.be&noUDP&sock=startd_1652_b68b>
+	SlotName: slot1_1@wulfenite.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_8b75e3aa }
+	CondorScratchDir = "/usr/data/condor/execute/dir_2273654"
+	Cpus = 8
+	Disk = 1050829
+	GPUs = 1
+	GPUs_GPU_8b75e3aa = [ Id = "GPU-8b75e3aa"; ClockMhz = 1582.0; Capability = 6.1; CoresPerCU = 128; DeviceName = "NVIDIA TITAN Xp"; DeviceUuid = "8b75e3aa-4eeb-2024-2b40-8db78b008331"; ECCEnabled = false; ComputeUnits = 30; DriverVersion = 12.7; DevicePciBusId = "0000:17:00.0"; GlobalMemoryMb = 12183; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...

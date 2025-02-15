@@ -1,0 +1,60 @@
+000 (1921.002.000) 2025-02-14 19:10:20 Job submitted from host: <10.87.28.129:9618?addrs=10.87.28.129-9618&alias=timmermans.esat.kuleuven.be&noUDP&sock=schedd_1957_eaee>
+...
+001 (1921.002.000) 2025-02-14 19:10:28 Job executing on host: <10.87.24.11:9618?addrs=10.87.24.11-9618&alias=cauchy.esat.kuleuven.be&noUDP&sock=startd_1798_db5f>
+	SlotName: slot1_1@cauchy.esat.kuleuven.be
+	AvailableGPUs = { GPUs_GPU_c00d9826 }
+	CondorScratchDir = "/usr/data/condor/execute/dir_606777"
+	Cpus = 8
+	Disk = 1055423
+	GPUs = 1
+	GPUs_GPU_c00d9826 = [ Id = "GPU-c00d9826"; ClockMhz = 1695.0; Capability = 8.6; CoresPerCU = 128; DeviceName = "NVIDIA GeForce RTX 3080 Ti"; DeviceUuid = "c00d9826-9302-6c13-9cb6-ddbe7c21100d"; ECCEnabled = false; ComputeUnits = 80; DriverVersion = 12.7; DevicePciBusId = "0000:41:00.0"; GlobalMemoryMb = 11937; MaxSupportedVersion = 12070 ]
+	Memory = 22528
+...
+006 (1921.002.000) 2025-02-14 19:10:42 Image size of job updated: 409968
+	401  -  MemoryUsage of job (MB)
+	409968  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:15:43 Image size of job updated: 7980344
+	5248  -  MemoryUsage of job (MB)
+	5373848  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:20:43 Image size of job updated: 8506868
+	6382  -  MemoryUsage of job (MB)
+	6534324  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:35:45 Image size of job updated: 15450356
+	6382  -  MemoryUsage of job (MB)
+	6534324  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:40:45 Image size of job updated: 15702908
+	8708  -  MemoryUsage of job (MB)
+	8916444  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:45:46 Image size of job updated: 22300624
+	20755  -  MemoryUsage of job (MB)
+	21252888  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 19:50:46 Image size of job updated: 22300624
+	20756  -  MemoryUsage of job (MB)
+	21253444  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 20:15:48 Image size of job updated: 22300624
+	20936  -  MemoryUsage of job (MB)
+	21438176  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 20:25:49 Image size of job updated: 22394740
+	20936  -  MemoryUsage of job (MB)
+	21438176  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 21:00:53 Image size of job updated: 22466132
+	21175  -  MemoryUsage of job (MB)
+	21683088  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-14 21:05:54 Image size of job updated: 22528480
+	21178  -  MemoryUsage of job (MB)
+	21685616  -  ResidentSetSize of job (KB)
+...
+006 (1921.002.000) 2025-02-15 01:21:18 Image size of job updated: 22528480
+	21455  -  MemoryUsage of job (MB)
+	21969388  -  ResidentSetSize of job (KB)
+...

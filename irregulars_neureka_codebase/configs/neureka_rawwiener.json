@@ -1,0 +1,37 @@
+{
+  "model": {
+    "model_class": "NeurekaNet_2Views",
+    "args": {
+      "augment_with_surrogates": false
+    },
+    "encoders": [
+        {
+            "model_class": "UNet1D",
+            "args": {
+              "n_filters": 8,
+              "n_channels": 18,
+              "window_size": 4096,
+              "preproc": "raw"
+            },
+          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_raw.pth"}
+        },
+        {
+          "model_class": "UNet1D",
+            "args": {
+              "n_filters": 8,
+              "n_channels": 18,
+              "window_size": 4096,
+              "preproc": "wiener"
+            },
+          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_wiener.pth"}
+        },
+        {
+          "model_class": "LSTM_Neureka",
+            "args": {},
+          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_lstm.pth"}
+        }
+        ],
+    "load_ongoing": true,
+    "save_dir": "pytorch_neureka{}.pth"
+  }
+}
