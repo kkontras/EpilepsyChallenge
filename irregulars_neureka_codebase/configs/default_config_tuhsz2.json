@@ -38,6 +38,6 @@
                     "tuh": "/esat/biomeddata/kkontras/TUH/tuh_eeg/tuh_eeg_seizure/v2.0.3/TUH.h5"}
   },
   "model": {
-    "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/TUH_SZ2_models/"
+    "save_base_dir": ""
   }
 }
