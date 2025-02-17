@@ -16,7 +16,7 @@ class IODataset(Dataset):
         self.recording = recording
 
     def __len__(self):
-        return self.recording.getDuration()*self.config.dataset.fs//self.config.dataset.window_size
+        return int(self.recording.getDuration()*self.config.dataset.fs//self.config.dataset.window_size)
 
     def _windowize(self, data, window_size, stride):
         data = np.array(data)

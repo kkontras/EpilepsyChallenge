@@ -15,10 +15,10 @@ class IOChallenge:
         self.config = config
         self.recording = Recording_Reader.loadData(pathIn)
         self.recording.preprocessData()
-        self.dataloader = IODataloader(self.recording, self.config).loader
+        self.dataloader = IODataloader(self.recording, self.config)
 
     def predict(self):
-        return main_validate(self.config, self.dataloader)
+        return main_validate(self.config, self.dataloader.loader)
 
     def saveEvents(self, evs: list, pathOut: Path):
         dateTime = self.recording.getTime()
@@ -32,11 +32,12 @@ class IOChallenge:
                     writer.writerow([float(ev[0]), float(ev[1]-ev[0]), "sz", "n/a", "n/a", dateTime, float(self.recording.getDuration())])
             else:
                 writer.writerow([0.0, float(self.recording.getDuration()), "bckg", "n/a", "n/a", dateTime, float(self.recording.getDuration())])
+        print("Events stored in:", pathOut)
         return
     
 def main(pathIn, pathOut):
     setup_logger()
-    config = process_config_default(Path("irregulars_neureka_codebase/configs/neureka.json"), Path("irregulars_neureka_codebase/configs/default_config_tuhsz2.json"))
+    config = process_config_default(Path("./irregulars_neureka_codebase/configs/neureka_rawwiener.json"), Path("./irregulars_neureka_codebase/configs/default_config_tuhsz2.json"))
     ioChallenge = IOChallenge(pathIn, config)
     prds = ioChallenge.predict()
     ioChallenge.saveEvents(prds, pathOut)
