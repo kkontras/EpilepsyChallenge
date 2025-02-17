@@ -24,9 +24,11 @@ nvidia-nccl-cu12==2.21.5
 nvidia-nvjitlink-cu12==12.4.127
 nvidia-nvtx-cu12==12.4.127
 pillow==11.1.0
+pip==24.2
 pyEDFlib==0.1.39
 scikit-learn==1.6.1
 scipy==1.15.1
+setuptools==75.8.0
 sympy==1.13.1
 threadpoolctl==3.5.0
 timescoring==0.0.6
@@ -35,3 +37,4 @@ torchvision==0.21.0
 tqdm==4.67.1
 triton==3.2.0
 typing_extensions==4.12.2
+wheel==0.44.0
