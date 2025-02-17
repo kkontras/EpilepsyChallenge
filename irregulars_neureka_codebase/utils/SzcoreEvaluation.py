@@ -32,9 +32,9 @@ class MetricsStore():
     def evaluate_multiple_predictions(
             self, reference, predictions, patients, fs = 200
     ) -> None:
-        # for i in range(len(patients)):
-        self.evaluate_predictions(reference, fs, predictions, fs, patients )
-        return None        
+        for i in range(len(patients)):
+            self.evaluate_predictions(reference, fs, predictions, fs, patients )
+        return None
 
     def evaluate_predictions(
         self, reference, ref_fs, predictions, pred_fs, patient
@@ -68,13 +68,13 @@ class MetricsStore():
         # Compute evaluation
         sample_score = scoring.SampleScoring(ref, pred)
         event_score = scoring.EventScoring(ref, pred)
+        # print(self.event_results[patient])
 
         # Store results
         self.sample_results[patient] = self.sample_results[patient] + Result(sample_score)
         self.event_results[patient] = self.event_results[patient] + Result(event_score)
 
         return None
-
 
     def _compute_scores(self, avg_per_subject = True):
 
@@ -91,6 +91,7 @@ class MetricsStore():
                 (aggregated_sample_results, aggregated_event_results),
             ):
                 for metric in ["sensitivity", "precision", "f1", "fpRate"]:
+
                     aggregated_result[metric] = np.nanmean(
                         [getattr(x, metric) for x in result_builder.values()]
                     )

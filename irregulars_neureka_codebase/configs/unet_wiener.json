@@ -2,7 +2,8 @@
   "model": {
     "model_class": "Unimodal",
     "args": {
-      "augment_with_surrogates": false
+      "augment_with_surrogates": false,
+      "validate_with": "loss"
     },
     "encoders": [
         {

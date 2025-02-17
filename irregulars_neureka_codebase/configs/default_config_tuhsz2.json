@@ -32,6 +32,7 @@
       "window_size": 4096,
       "fs": 200,
       "stride": 4096,
+    "discard_full_prob": 1.0,
     "ratio_sz_nsz": 0.5,
       "data_path": {"sz2": "/esat/biomeddata/mbhaguba/seizeit2.h5",
                     "tuh": "/esat/biomeddata/kkontras/TUH/tuh_eeg/tuh_eeg_seizure/v2.0.3/TUH.h5"}

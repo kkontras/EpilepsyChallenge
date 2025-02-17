@@ -3,12 +3,12 @@ from utils.config import process_config, setup_logger, process_config_default
 import argparse
 import shutil
 shutil._USE_CP_SENDFILE = False
-from train import main_train, main_validate
+from train import main_train, main_validate, check_results
 
 def main(config_path, default_config_path, args):
     setup_logger()
 
-    config = process_config_default(config_path, default_config_path)
+    config = process_config_default(config_path, default_config_path, printing=not args.print_results)
 
     m = ""
     enc_m = ""
@@ -41,6 +41,9 @@ def main(config_path, default_config_path, args):
         for i in range(len(config.model.encoders)):
             config.model.encoders[i].pretrainedEncoder.dir = config.model.encoders[i].pretrainedEncoder.dir.format(enc_m)
 
+    if args.print_results:
+        check_results(config)
+        return
     if args.post_validate:
         main_validate(config)
     else:
@@ -58,6 +61,7 @@ parser.add_argument('--mm', required=False, help="Optimizer Momentum", default=N
 parser.add_argument('--rsz', required=False, help="ratio_sz_nsz", default=None)
 parser.add_argument('--bs', required=False, help="batch size", default=None)
 parser.add_argument('--post_validate', required=False, help="batch size", default=False, action="store_true")
+parser.add_argument('--print_results', required=False, help="batch size", default=False, action="store_true")
 args = parser.parse_args()
 
 for var_name in vars(args):
@@ -65,7 +69,7 @@ for var_name in vars(args):
     if var_value == "None":
         setattr(args, var_name, None)
 
-print(args)
+# print(args)
 
 
 main(config_path=args.config, default_config_path=args.default_config, args=args)

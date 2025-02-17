@@ -93,13 +93,10 @@ def wiener_preproc(data, filters):
 
     return filtered[:, :, :samples].permute(0, 2, 1).unsqueeze(dim=1)
 
-
 def iclabel_preproc(raw_data, n_components=20, threshold=0.8):
     #TODO: ICA Preprocessing remains to be implemented
 
     return raw_data
-
-
 
 class UNet1D(nn.Module):
     def __init__(self, args, encs=None):
@@ -115,7 +112,7 @@ class UNet1D(nn.Module):
             with open('./library/filters.pickle', 'rb') as handle:
                 self.wiener_filter = pickle.load(handle)
                 #select the first set of filters
-                self.wiener_filter = torch.tensor(self.wiener_filter[0], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
+                self.wiener_filter = torch.tensor(self.wiener_filter[1], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
 
 
         # Encoding Path
@@ -271,7 +268,7 @@ class LSTM_Neureka(nn.Module):
         super(LSTM_Neureka, self).__init__()
 
         # Bidirectional LSTM layer (input size = 1, hidden size = 8, bidirectional = True)
-        self.lstm = nn.LSTM(input_size=3, hidden_size=4, num_layers=1,
+        self.lstm = nn.LSTM(input_size=2, hidden_size=4, num_layers=1,
                             batch_first=True, bidirectional=True)
 
         # Dense layer (input size = 16, output size = 9)
@@ -304,6 +301,25 @@ class NeurekaNet(nn.Module):
             feat = torch.cat([raw[dim], wiener[dim], iclabel[dim]], dim=-1)
             pred_dict[dim] = self.enc_3(feat)
         return pred_dict
+
+
+class NeurekaNet_2Views(nn.Module):
+    def __init__(self, args, encs):
+        super(NeurekaNet_2Views, self).__init__()
+
+        self.enc_0 = encs[0]
+        self.enc_1 = encs[1]
+        self.enc_2 = encs[2]
+
+    def forward(self, x):
+        raw = self.enc_0(x)
+        wiener = self.enc_1(x)
+        pred_dict = {}
+        for dim in range(len(raw)):
+            feat = torch.cat([raw[dim], wiener[dim]], dim=-1)
+            pred_dict[dim]= self.enc_2(feat).squeeze()
+        return pred_dict
+
 class Unimodal(nn.Module):
     def __init__(self, args, encs):
         super(Unimodal, self).__init__()

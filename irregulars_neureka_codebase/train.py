@@ -166,13 +166,13 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         data = einops.rearrange(data, "b c t -> b t c").unsqueeze(dim=1)
 
         preds = model(data)
-        losses = {}
 
+        losses = {}
         for key_pred, pred in preds.items():
             this_label = einops.rearrange(label, "b t -> b 1 t")
             this_label = torch.nn.functional.interpolate(this_label, size=(pred.shape[1]), mode='nearest').squeeze()
-            total_preds["{}_label".format(key_pred)].append(this_label.detach().cpu().numpy())
 
+            total_preds["{}_label".format(key_pred)].append(this_label.detach().cpu().numpy())
             total_preds[key_pred].append(pred.detach().cpu().numpy())
 
             this_pred_loss = loss(pred, this_label)
@@ -195,10 +195,9 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         for i, v in aggr_loss.items(): message += "{} : {:.6f} ".format(i, v)
         pbar.set_description(message)
         pbar.refresh()
-
-        # if current_step == 1000:
-        #     break
-
+        print(current_step)
+        if current_step > 100:
+            break
 
 
     # merge predictions from same patients in the correct order for key=0 not in one line
@@ -212,7 +211,6 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
                 aggregated_patient_preds[name] = {"preds": {}, "label": {}}
             aggregated_patient_preds[name]["preds"]["{}_{}".format(len_from, len_to)] = pred[i]
             aggregated_patient_preds[name]["label"]["{}_{}".format(len_from, len_to)] = label[i]
-            aggregated_patient_preds[name]["events"] = demo["events"][i]
 
     metricsStoreTest = MetricsStore(config)
     #sort the pred len_from, len_to and merge them into one array
@@ -222,14 +220,18 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         val["label"] = np.concatenate([val["label"][k] for k in sorted_keys], axis=0)
         classification_threshold = config.model.args.get("cls_threshold",0.5)
 
-        events = post_processing(val["preds"], fs=config.dataset.fs, th=classification_threshold, margin=10)
-        true_events = mask2eventList(val["label"], fs=config.dataset.fs)
-        loaded_events = [ev for ev in val["events"] if ev[0] != ev[1]]
-        print("Loaded events: ", loaded_events)
-        print("Predicted events: ", events)
-        metricsStoreTest.evaluate_multiple_predictions(val["label"], (val["preds"] > classification_threshold), key.split("_")[0])
+        event_preds = post_processing(val["preds"], 200, 0.5, 10)
+        event_labels = mask2eventList(val["label"], 200)
+        print(key)
+        print(event_preds)
+        print(event_labels)
+        print()
 
-    res_1 = metricsStoreTest.store_scores()
+        #check if preds are nan
+        metricsStoreTest.evaluate_multiple_predictions(val["label"], (val["preds"] > classification_threshold), key.split("_")[0])
+        # metricsStoreTest.evaluate_multiple_predictions_windows(loaded_events, events, key.split("_")[0])
+
+    results_per_patient = metricsStoreTest.store_scores()
     metrics = metricsStoreTest.store_metrics()
 
     for total_size in [200]: #fs=200 so 5, 2, 1, 0.5 seconds
@@ -248,27 +250,30 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
     for i, v in metrics.items():
         message += "Type of results: {0:} \n".format(i)
         for key, val in v.items():
-            #do sth for the confusion in one line
-            if key == "confusion_matrix":
-                message += "{} : [".format(key)
-                for row in val:
-                    message += " ".join([str(i) for i in row]) + ","
-                message += "] ".format(key)
-
-            else:
-                message += "{} : {:.3f} ".format(key, val)
+            message += "{} : {:.3f} ".format(key, val)
         message += "\n"
     print(message)
     logs[epoch][set_name]["metrics"] = metrics
 
     return logs
 
-def is_best(logs, epoch):
+def is_best(logs, epoch, config):
+
+    this_epoch_val_f1 = logs[epoch]["val"]["metrics"]["event_results"]["f1"]
     this_epoch_val_loss = torch.tensor(logs[epoch]["val"]["losses"]).mean()
     is_best_model = False
-    if this_epoch_val_loss < logs["best"]["loss"]:
-        logs["best"]["loss"] = this_epoch_val_loss
-        is_best_model = True
+    if config.model.args.get("validate_with", "f1") == "f1":
+        if this_epoch_val_f1 > logs["best"]["f1"]:
+            logs["best"]["f1"] = this_epoch_val_f1
+            logs["best"]["loss"] = this_epoch_val_loss
+            logs["best"]["epoch"] = epoch
+            is_best_model = True
+    elif config.model.args.get("validate_with", "f1") == "loss":
+        if this_epoch_val_loss < logs["best"]["loss"]:
+            logs["best"]["f1"] = this_epoch_val_f1
+            logs["best"]["loss"] = this_epoch_val_loss
+            logs["best"]["epoch"] = epoch
+            is_best_model = True
     return is_best_model
 
 def train_loop(epoch, model, optimizer, scheduler, loss, dataloader, logs, config):
@@ -337,15 +342,16 @@ def main_train(config):
 
     loss = BinaryCrossEntropyWithLabelSmoothingAndWeights()
 
-    if os.path.exists(config.model.save_dir) and config.model.get("load_ongoing", True):
+    file_name = path.join(config.model.save_base_dir, config.model.save_dir)
+    if file_name and config.model.get("load_ongoing", True):
         model, optimizer, scheduler, logs, config, dataloaders = load_dir(config, model, optimizer, scheduler, dataloaders)
     else:
-        logs = {"best": {"loss": 1e20}, "epoch":0}
+        logs = {"best": {"loss": 1e20, "f1": 0.0}, "epoch":0}
 
     try:
 
-        logs[-1] = {"train": defaultdict(list), "val": defaultdict(list), "test": defaultdict(list)}
-        _ = validate(model, dataloaders.valid_loader, logs, -1, loss, config, "val")
+        # logs[-1] = {"train": defaultdict(list), "val": defaultdict(list), "test": defaultdict(list)}
+        # _ = validate(model, dataloaders.valid_loader, logs, -1, loss, config, "val")
 
         for logs["epoch"] in range(logs["epoch"], config.early_stopping.max_epoch):
             if logs["epoch"] not in logs:
@@ -356,7 +362,7 @@ def main_train(config):
             logs = validate(model, dataloaders.valid_loader, logs, logs["epoch"], loss, config, "val")
 
             save_model(True,
-                       is_best(logs, logs["epoch"]),
+                       is_best(logs, logs["epoch"], config),
                        model, optimizer, scheduler, logs, config, dataloaders)
     #catch a control c and save the model
     except KeyboardInterrupt:
@@ -389,10 +395,42 @@ def main_validate(config):
         logs = {"best": {"loss": 1e20}, "epoch":0}
 
     model = load_best_model(model, config)
-
     logs["post_training"] = {"train": defaultdict(list), "val": defaultdict(list), "test": defaultdict(list)}
     logs = validate(model, dataloaders.valid_loader, logs, "post_training", loss, config, "val")
     # logs = validate(model, dataloaders.test_loader, logs, "post_training", loss, config, "test")
     save_model(False,
                False,
                model, optimizer, scheduler, logs, config, dataloaders)
+
+
+def check_results(config):
+
+    file_name = config.model.save_dir
+    if "save_base_dir" in config.model:
+        file_name = os.path.join(config.model.save_base_dir, file_name)
+    print("Checking file {}".format(file_name))
+    try:
+        checkpoint = torch.load(file_name, map_location="cpu", weights_only=False)
+    except:
+        print("Couldnt load file {}".format(file_name))
+        return
+    if "best" in checkpoint["logs"]:
+        # print("Best so far")
+        # print(checkpoint["logs"]["best"])
+        if "epoch" in checkpoint["logs"]["best"]:
+            print("Current Epoch {} Best Epoch {}".format(checkpoint["logs"]["epoch"], checkpoint["logs"]["best"]["epoch"]), end=" ")
+            print("f1 {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["event_results"]["f1"]), end=" ")
+            print("sens {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["event_results"]["sensitivity"]))
+            # print("f1 {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["sample_results"]["f1"]), end=" ")
+            # print("sens {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["sample_results"]["sensitivity"]))
+        else:
+            #find the valudation epoch with the same loss
+            for epoch, logs in checkpoint["logs"].items():
+                #if epoch is int
+                if isinstance(epoch, int):
+                    print("Epoch {}".format(epoch))
+                    print(logs["val"]["metrics"]["event_results"]["f1"])
+                    print(logs["val"]["metrics"]["event_results"]["sensitivity"])
+    if "post_training" in checkpoint["logs"]:
+        print("Post training")
+        print(checkpoint["logs"]["post_training"])
