@@ -130,7 +130,10 @@ def load_model(config):
     enc = load_encoder(enc_args=config.model.get("encoders", []), config=config)
     model_class = globals()[config.model.model_class]
     model = model_class(encs=enc, args=config.model.args)
-    model.cuda()
+    try:
+        model.cuda()
+    except Exception:
+        model
     return model
 
 def load_optimizer_and_scheduler(config, model):
@@ -161,8 +164,12 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
     total_preds = defaultdict(list)
     pbar = tqdm(enumerate(dataloaders), total=len(dataloaders))
     for current_step, batch in pbar:
-        data = batch['data']['raw'].cuda().float()
-        label = batch['label'].cuda()
+        try:
+            data = batch['data']['raw'].cuda().float()
+            label = batch['label'].cuda()
+        except Exception:
+            data = batch['data']['raw'].float()
+            label = batch['label']
         data = einops.rearrange(data, "b c t -> b t c").unsqueeze(dim=1)
 
         preds = model(data)
@@ -283,8 +290,12 @@ def train_loop(epoch, model, optimizer, scheduler, loss, dataloader, logs, confi
     pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc="Training", leave=None, )
     for current_step, batch in pbar:
         optimizer.zero_grad()
-        data = batch['data']['raw'].cuda().float()
-        label = batch['label'].cuda()
+        try:
+            data = batch['data']['raw'].cuda().float()
+            label = batch['label'].cuda()
+        except Exception:
+            data = batch['data']['raw'].float()
+            label = batch['label']
         data = einops.rearrange(data, "b c t -> b t c").unsqueeze(dim=1)
 
         preds = model(data)

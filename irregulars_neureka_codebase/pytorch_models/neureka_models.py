@@ -109,11 +109,13 @@ class UNet1D(nn.Module):
         self.preproc = args.preproc
 
         if self.preproc == "wiener":
-            with open('./library/filters.pickle', 'rb') as handle:
+            with open('./irregulars_neureka_codebase/library/filters.pickle', 'rb') as handle:
                 self.wiener_filter = pickle.load(handle)
                 #select the first set of filters
-                self.wiener_filter = torch.tensor(self.wiener_filter[1], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
-
+                try:
+                    self.wiener_filter = torch.tensor(self.wiener_filter[1], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
+                except Exception:
+                    self.wiener_filter = torch.tensor(self.wiener_filter[1], dtype=torch.float32) 
 
         # Encoding Path
         self.conv = nn.Conv2d(1, n_filters, (15, 1), padding=(7, 0))
@@ -341,7 +343,10 @@ if __name__ == "__main__":
     # for out_i in output:
     #     print(out_i.shape)
     from torchsummary import summary
-    summary(model.cuda(), (1, 4096, 18))
+    try:
+        summary(model.cuda(), (1, 4096, 18))
+    except Exception:
+        summary(model, (1, 4096, 18))
 
     total_tf = [  128, 32,   1936, 64,   7712, 128,   7200, 128,   6208, 256,
              12352, 256,   6176, 128,   3104, 128,    1024, 2048,  32, 33,

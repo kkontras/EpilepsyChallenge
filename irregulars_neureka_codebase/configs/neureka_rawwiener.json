@@ -13,7 +13,7 @@
               "window_size": 4096,
               "preproc": "raw"
             },
-          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_raw.pth"}
+          "pretrainedEncoder": {"use": true, "dir": "./irregulars_neureka_codebase/weights/TUH_SZ2_models/neureka_pytorch_raw.pth"}
         },
         {
           "model_class": "UNet1D",
@@ -23,15 +23,15 @@
               "window_size": 4096,
               "preproc": "wiener"
             },
-          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_wiener.pth"}
+          "pretrainedEncoder": {"use": true, "dir": "./irregulars_neureka_codebase/weights/TUH_SZ2_models/neureka_pytorch_wiener.pth"}
         },
         {
           "model_class": "LSTM_Neureka",
             "args": {},
-          "pretrainedEncoder": {"use": true, "dir": "neureka_pytorch_lstm.pth"}
+          "pretrainedEncoder": {"use": true, "dir": "./irregulars_neureka_codebase/weights/TUH_SZ2_models/neureka_pytorch_lstm.pth"}
         }
         ],
     "load_ongoing": true,
-    "save_dir": "pytorch_neureka{}.pth"
+    "save_dir": "./irregulars_neureka_codebase/weights/TUH_SZ2_models/pytorch_neureka_lr0.0001_wd0.001_rsz0.5_rsz64.pth"
   }
 }
