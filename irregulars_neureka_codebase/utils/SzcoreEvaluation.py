@@ -68,6 +68,7 @@ class MetricsStore():
         # Compute evaluation
         sample_score = scoring.SampleScoring(ref, pred)
         event_score = scoring.EventScoring(ref, pred)
+        # print(self.event_results[patient])
 
         # Store results
         self.sample_results[patient] = self.sample_results[patient] + Result(sample_score)
@@ -90,6 +91,7 @@ class MetricsStore():
                 (aggregated_sample_results, aggregated_event_results),
             ):
                 for metric in ["sensitivity", "precision", "f1", "fpRate"]:
+
                     aggregated_result[metric] = np.nanmean(
                         [getattr(x, metric) for x in result_builder.values()]
                     )

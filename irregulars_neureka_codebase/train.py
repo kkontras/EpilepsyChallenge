@@ -166,6 +166,7 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         data = einops.rearrange(data, "b c t -> b t c").unsqueeze(dim=1)
 
         preds = model(data)
+
         losses = {}
         for key_pred, pred in preds.items():
             this_label = einops.rearrange(label, "b t -> b 1 t")
@@ -194,10 +195,9 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         for i, v in aggr_loss.items(): message += "{} : {:.6f} ".format(i, v)
         pbar.set_description(message)
         pbar.refresh()
-
-        # if current_step == 1000:
-        #     break
-
+        print(current_step)
+        if current_step > 100:
+            break
 
 
     # merge predictions from same patients in the correct order for key=0 not in one line
@@ -220,6 +220,14 @@ def validate(model, dataloaders, logs, epoch, loss, config, set_name="val"):
         val["label"] = np.concatenate([val["label"][k] for k in sorted_keys], axis=0)
         classification_threshold = config.model.args.get("cls_threshold",0.5)
 
+        event_preds = post_processing(val["preds"], 200, 0.5, 10)
+        event_labels = mask2eventList(val["label"], 200)
+        print(key)
+        print(event_preds)
+        print(event_labels)
+        print()
+
+        #check if preds are nan
         metricsStoreTest.evaluate_multiple_predictions(val["label"], (val["preds"] > classification_threshold), key.split("_")[0])
         # metricsStoreTest.evaluate_multiple_predictions_windows(loaded_events, events, key.split("_")[0])
 
@@ -334,7 +342,8 @@ def main_train(config):
 
     loss = BinaryCrossEntropyWithLabelSmoothingAndWeights()
 
-    if os.path.exists(config.model.save_dir) and config.model.get("load_ongoing", True):
+    file_name = path.join(config.model.save_base_dir, config.model.save_dir)
+    if file_name and config.model.get("load_ongoing", True):
         model, optimizer, scheduler, logs, config, dataloaders = load_dir(config, model, optimizer, scheduler, dataloaders)
     else:
         logs = {"best": {"loss": 1e20, "f1": 0.0}, "epoch":0}
@@ -406,15 +415,22 @@ def check_results(config):
         print("Couldnt load file {}".format(file_name))
         return
     if "best" in checkpoint["logs"]:
-        print("Best so far")
-        print(checkpoint["logs"]["best"])
-        #find the valudation epoch with the same loss
-        for epoch, logs in checkpoint["logs"].items():
-            #if epoch is int
-            if isinstance(epoch, int):
-                print("Epoch {}".format(epoch))
-                print(logs["val"]["metrics"]["event_results"]["f1"])
-                print(logs["val"]["metrics"]["event_results"]["sensitivity"])
+        # print("Best so far")
+        # print(checkpoint["logs"]["best"])
+        if "epoch" in checkpoint["logs"]["best"]:
+            print("Current Epoch {} Best Epoch {}".format(checkpoint["logs"]["epoch"], checkpoint["logs"]["best"]["epoch"]), end=" ")
+            print("f1 {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["event_results"]["f1"]), end=" ")
+            print("sens {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["event_results"]["sensitivity"]))
+            # print("f1 {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["sample_results"]["f1"]), end=" ")
+            # print("sens {:.4f}".format(checkpoint["logs"][checkpoint["logs"]["best"]["epoch"]]["val"]["metrics"]["sample_results"]["sensitivity"]))
+        else:
+            #find the valudation epoch with the same loss
+            for epoch, logs in checkpoint["logs"].items():
+                #if epoch is int
+                if isinstance(epoch, int):
+                    print("Epoch {}".format(epoch))
+                    print(logs["val"]["metrics"]["event_results"]["f1"])
+                    print(logs["val"]["metrics"]["event_results"]["sensitivity"])
     if "post_training" in checkpoint["logs"]:
         print("Post training")
         print(checkpoint["logs"]["post_training"])

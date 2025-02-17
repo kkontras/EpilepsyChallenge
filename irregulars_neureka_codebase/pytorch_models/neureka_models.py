@@ -93,13 +93,10 @@ def wiener_preproc(data, filters):
 
     return filtered[:, :, :samples].permute(0, 2, 1).unsqueeze(dim=1)
 
-
 def iclabel_preproc(raw_data, n_components=20, threshold=0.8):
     #TODO: ICA Preprocessing remains to be implemented
 
     return raw_data
-
-
 
 class UNet1D(nn.Module):
     def __init__(self, args, encs=None):
@@ -115,7 +112,7 @@ class UNet1D(nn.Module):
             with open('./library/filters.pickle', 'rb') as handle:
                 self.wiener_filter = pickle.load(handle)
                 #select the first set of filters
-                self.wiener_filter = torch.tensor(self.wiener_filter[0], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
+                self.wiener_filter = torch.tensor(self.wiener_filter[1], dtype=torch.float32).cuda()    #TODO: Search what is the second set of filters
 
 
         # Encoding Path

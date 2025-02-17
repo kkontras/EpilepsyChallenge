@@ -69,7 +69,7 @@ for var_name in vars(args):
     if var_value == "None":
         setattr(args, var_name, None)
 
-print(args)
+# print(args)
 
 
 main(config_path=args.config, default_config_path=args.default_config, args=args)
